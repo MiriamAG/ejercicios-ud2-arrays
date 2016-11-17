@@ -19,11 +19,11 @@ public class Main {
 
 
 
-
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String []  listaClase = new String[20];
 
-        for ( int i = 0; i <2 ; i++) {
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        for ( int i = 0; i <3 ; i++) {
+
             System.out.println("Escribe Nombre y Apellidos: ");
             String nombreApellido = br.readLine();
 
@@ -31,6 +31,19 @@ public class Main {
 
         }
 
+        System.out.println("Escriba una letra: ");
+
+        char letra = br.readLine().charAt(0);
+
+        for (int x = 0; x < 3; x++) {
+            if (listaClase[x].charAt(0)==letra) {
+                System.out.print(listaClase[x]);
+
+            }
+
+
+
+        }
 
     }
 }
