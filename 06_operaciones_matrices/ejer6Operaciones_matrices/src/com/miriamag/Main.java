@@ -13,7 +13,7 @@ public class Main {
 
             for (int j = 0; j < m[0].length; j++) {//m[0] entra en la primera fila y el .length cuenta la cantidad de huecos que hay a partir de esa posición
 
-                System.out.format("%3d", m[i][j]);
+                System.out.format("%4d", m[i][j]);
             }
             System.out.println();
         }
@@ -23,31 +23,63 @@ public class Main {
 
     public static int[][] sumarmatrices (int[][] m1,int[][] m2){
 
-        int i;
-        int j;
+        int filas = m1.length;//numero de filas de la m1
+        int columnas= m1[0].length;//numero de columnas de m1
 
-        int [][]resultado= new int[4][4];
-        for (i = 0; i < 4; i++) {
-            for (j = 0; j < 4; j++) {
+        int [][]resultado= new int[filas][columnas];
+
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
 
                resultado[i][j] =m1[i][j]+ m2[i][j];
-
             }
-
         }
+
         return resultado;
     }
+
     public static int[][] productoEscalar(int [][]m,int x){
-        int [][] resultado = new int[4][4];
+        int [][] resultado = new int[m.length][m[0].length];
+
+        for (int i = 0; i < m.length ; i++) {
+            for (int j = 0; j < m[0].length; j++) {
+
+                resultado [i][j]= x * m[i][j];
+            }
+        }
+
         return resultado;
     }
+
     public static int [][]producto(int[][]m1, int[][]m2){
-        int [][] resultado = new int[4][4];
+        int [][] resultado = new int[m1.length][m1[0].length];
+
+        //la i y la j recorrn la matriz resultado, no las de origen
+
+        for (int i = 0; i < m1.length ; i++) {
+            for (int j = 0; j <m1[0].length ; j++) {
+                for (int k = 0; k < m1.length; k++) {
+                    resultado[i][j]= resultado[i][j]+ m1[i][k] * m2[k][j];
+                }
+            }
+        }
+
         return resultado;
     }
 
     public static int [][]traspuesta(int[][]m1){
-        int [][] resultado = new int[4][4];
+        int [][] resultado = new int[m1[0].length][m1.length ];
+
+        for (int i = 0; i < m1.length; i++) {
+            for (int j = 0; j < m1[0].length; j++) {
+
+                resultado[j][i]= m1[i][j];
+
+            }
+
+        }
+
+
         return resultado;
     }
 
@@ -78,7 +110,7 @@ public class Main {
 
             for (int j = 0; j < 4; j++) {
 
-                Random r = new Random ();
+                Random r = new Random (5);
                 int divina = r.nextInt(10);
                 matrizLlorar[i][j]=  divina;
 
