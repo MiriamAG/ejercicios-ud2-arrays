@@ -12,7 +12,6 @@ public class Main {
             for (int j = 0; j < 3; j++) {
 
                 switch (m[i][j]){
-
                     case 0:
                         System.out.print(" O ");
                         break;
@@ -22,7 +21,6 @@ public class Main {
                     case 7:
                         System.out.print(" . ");
                         break;
-
                 }
             }
             System.out.println();
