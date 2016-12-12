@@ -98,11 +98,11 @@ public class Main {
 
             //COMPROBAR SUBCUADRÍCULA
 
-            int fila2= (fila%3)*3;
-            int columna2=(columna%3)*3;
+            int fila2= (fila/3)*3;
+            int columna2=(columna/3)*3;
 
-            for (int i = fila2; i < 3; i++) {
-                for (int j = columna2; j < 3; j++) {
+            for (int i = fila2; i < fila2+3; i++) {
+                for (int j = columna2; j < columna2+3; j++) {
 
                     if (tablero[i][j]==numero){
                         error=true;
