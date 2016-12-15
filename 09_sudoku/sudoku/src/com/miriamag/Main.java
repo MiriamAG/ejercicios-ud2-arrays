@@ -5,14 +5,67 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
+    public static boolean numeroValidoFila(int[][]tablero, int fila, int numero){
+
+        //búsqueda lineal de un array
+        int i =0;
+        while (1< tablero[0].length && tablero[fila][i] != numero){
+            i++;
+        }return !(i<tablero[0].length);
+    }
+    public static boolean numeroValidoColumna(int[][]tablero, int columna, int numero){
+
+        //búsqueda lineal de un array
+        int i =0;
+        while (1< tablero.length && tablero[i][columna]!= numero){
+            i++;
+        }return !(i<tablero.length);
+    }
+
+    public static boolean numeroValidoSubcuadricula(int[][]tablero,int fila, int columna, int numero){
+
+    boolean encontrado =false;
+
+        int filaInicio = (fila / 3) * 3;
+        int columnaInicio = (columna / 3) * 3;
+
+        for (int i = filaInicio; i < filaInicio + 3; i++) {
+            for (int j = columnaInicio; j < columnaInicio + 3; j++) {
+
+                if (tablero[i][j] == numero) {
+                    encontrado = true;
+                }
+            }
+
+        }
+
+     return !encontrado;//en funcion del nombre de la funcion, numero valido? No true.
+    }
+
+    public static boolean terminado (int[][]tablero){
+
+        for (int i = 0; i < tablero.length; i++) {
+            for (int j = 0; j < tablero[0].length; j++) {
+
+                if(tablero[i][j]==0){
+                    return false;
+                }
+
+            }
+        }
+        return true;
+    }
 
     public static void mostrar(int[][] m) {
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < m.length; i++) {//cuantas filas hay
 
-            for (int j = 0; j < 9; j++) {
+            for (int j = 0; j < m[0].length; j++) {//cuanto mide la fila 0
 
-
-                System.out.format("%3d", m[i][j]);
+                if(m[i][j]!=0) {
+                    System.out.format("%2d", m[i][j]);
+                }else{
+                    System.out.println(" .");
+                }
             }
             System.out.println();
         }
@@ -31,9 +84,17 @@ public class Main {
     El programa termina cuando el usuario escriba FIN o el tablero se complete.*/
 
 
-        int[][] tablero = new int[9][9];
+        int[][] tablero = new int[9][9];//[][] = doble indireccion
 
-        //valores fijos ejemplo wiki
+        //primero se ponen todos a 0
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                tablero[i][j]= 0;
+            }
+        }
+
+        //luego se le aisgnan valores a las posiciones fijas
         tablero[0][0] = 5;
         tablero[0][1] = 3;
         tablero[1][0] = 6;
@@ -71,11 +132,17 @@ public class Main {
         int columna;
         int numero;
         boolean error;
+        boolean vacio;
 
 
-        do {
 
-            error = false;
+
+        String respuesta;
+
+            do {
+                mostrar(tablero);
+
+
 
             //PEDIR NUMERO Y POSICION
             System.out.println("Elige el número que quieres poner: ");
@@ -88,53 +155,27 @@ public class Main {
             columna = Integer.parseInt(br.readLine());
 
 
-            //COMPROBAR SI SE PUEDE PONER EN FILA Y COLUMNA
+            if (numeroValidoFila(tablero,fila,numero)&&
+                    numeroValidoColumna(tablero,columna,numero) &&
+                    numeroValidoSubcuadricula(tablero, fila,columna,numero)){
 
-            for (int i = 0; i < 9; i++) {
-                if (tablero[fila][i] == numero || tablero[i][columna] == numero) {
-                    error = true;
-                }
-            }
+                tablero[fila][columna]= numero;
 
-            //COMPROBAR SUBCUADRÍCULA
 
-            int fila2= (fila/3)*3;
-            int columna2=(columna/3)*3;
-
-            for (int i = fila2; i < fila2+3; i++) {
-                for (int j = columna2; j < columna2+3; j++) {
-
-                    if (tablero[i][j]==numero){
-                        error=true;
-                    }
-                }
+            }else{
+                System.out.println("Error.");
 
             }
 
+                System.out.println("Pulsa ENTER para continuar o escribe FIN para terminar: ");
 
-            if (error) {
-                System.out.println("Error");
-            }
-        } while (error);//SEGUIR PRIDIENDO MIENTRAS HAYA UN ERROR, SI NO LO HAY SE CAMBIA EL NUMERO
-
-        tablero[fila][columna]=numero;
-
-        //comprobar tablero acabado
-
-        boolean lleno;
-
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-
-                if (tablero[i][j]==0){
-                    lleno = false;
-
-                }
-            }
-        }
+                respuesta = br.readLine();
 
 
-        mostrar(tablero);
+
+
+    }while(!terminado(tablero) && !respuesta.equalsIgnoreCase("FIN"));/*cuando lleno sea true que significa que ha
+        encontrado 0 en el tablero o si escribe FIN*/
     }
 }
 
