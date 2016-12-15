@@ -57,11 +57,11 @@ public class Main {
     }
 
     public static void mostrar(int[][] m) {
-        for (int i = 0; i < m.length; i++) {//cuantas filas hay
 
+        for (int i = 0; i < m.length; i++) {//cuantas filas hay
             for (int j = 0; j < m[0].length; j++) {//cuanto mide la fila 0
 
-                if(m[i][j]!=0) {
+                if(m[i][j] != 0) {
                     System.out.format("%2d", m[i][j]);
                 }else{
                     System.out.println(" .");
@@ -126,23 +126,15 @@ public class Main {
         tablero[6][6] = 2;
         tablero[6][7] = 8;
 
-        mostrar(tablero);
 
         int fila;
         int columna;
         int numero;
-        boolean error;
-        boolean vacio;
-
-
-
 
         String respuesta;
 
             do {
                 mostrar(tablero);
-
-
 
             //PEDIR NUMERO Y POSICION
             System.out.println("Elige el número que quieres poner: ");
@@ -172,10 +164,17 @@ public class Main {
                 respuesta = br.readLine();
 
 
-
-
     }while(!terminado(tablero) && !respuesta.equalsIgnoreCase("FIN"));/*cuando lleno sea true que significa que ha
         encontrado 0 en el tablero o si escribe FIN*/
+
+    if (terminado(tablero)){
+            System.out.println("Bravo");
+
+    }else{
+        System.out.println(":(");
+    }
+
+
     }
 }
 
